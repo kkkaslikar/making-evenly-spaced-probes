@@ -2,7 +2,7 @@
 
 This mini-project attempted to generate PCR probes for [region specific extraction](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-016-2836-6) of mouse TGFβR1.
 
-Please refer to the  [rendered Github Pages]() for more details.
+Please refer to the  [rendered Github Pages](https://kkkaslikar.github.io/making-evenly-spaced-probes/) for more details.
 
 # File guide
 
