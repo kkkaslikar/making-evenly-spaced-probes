@@ -125,7 +125,7 @@ To retrieve all the processed probes aligned to chromosome 4 from the original S
 4. Verifying which of the `.sam` probes mapped to chromosome 4.
 5. Changing the nomenclature of chromosome-4 mapped probes in the `.bed` file from `chrom` to `chr4`, and rewriting that data to a new `.bed` file (`Tgfbr1_cleaned_probes_sC_chr.bed`)
 
-Refer to the [rendered R notebook](checking_chromosome_number.Rmd) for details.
+Refer to the [rendered R notebook](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html) for details.
 
 ## Checking probe structure
 
@@ -141,4 +141,4 @@ structureCheck predicted that 865 of 872 / 99.1972% candidate probes are predict
 
 ## Spacing probes
 
-Refer to the rendered [R notebook](spacing-probes.Rmd) for details.
+Refer to the rendered [R notebook](https://kkkaslikar.github.io/making-evenly-spaced-probes/spacing-probes.nb.html) for details.
