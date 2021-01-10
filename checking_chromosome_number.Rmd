@@ -1,0 +1,95 @@
+---
+title: Modifying Chromosome Nomenclature and Filtering for T~m~
+output:
+  html_notebook:
+    theme: flatly
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+
+
+# Introduction
+
+At this stage, probes have already been generated using `blockParse.py`, probes have already been aligned to the mouse genome using `bowtie2`, and multi-mappers have been removed using `outputClean.py`, resulting in a BED file with uniquely-mapping probes ("Tgfbr1_cleaned_probes.bed").
+
+The use of an Ensembl genome for alignment causes the first field of the BED file (usually containing the chromosome number) to be uninformative as to which chromosomes do the probes mapped to (containing only the generic character string "chrom"). This may be due to the fact that OligoMiner expects that the probes have been aligned using UCSC genomes, not Ensembl.
+
+This code attempts to rectify that mistake, and also tries to filter probes based on their T~m~.
+
+
+```{r}
+library(tidyverse)
+```
+
+
+# Reading in the files
+
+```{r message=FALSE, warning=FALSE}
+sam <- read_tsv("Tgfbr1_probes.sam", col_names = FALSE) # file containing potential multimappers, with chromosome location data
+ 
+bed <- read_tsv("Tgfbr1_cleaned_probes.bed", col_names = FALSE) # file cleaned of all multimappers, with no chromosome data
+
+colnames(bed) <- c("chromosome", "start", "end", "probe", "Tm")
+
+bed
+```
+
+The chromosome column in the BED file is uninformative with respect to which chromosome the probes align to.
+
+# Correcting the nomenclature of chromosome in bed file
+
+```{r }
+sam %>%
+    filter(X10 %in% bed$probe) %>%
+    select(X3) %>%
+    distinct() # finding the chromosome ID of the uniquely-mapping probes in bed
+```
+
+The uniquely-mapped probes in the BED file map to chromosome 4.
+
+```{r }
+bed$chromosome <- str_replace(bed$chromosome, pattern = "chrom", replacement = "chr4") # adding the relevant chromosome name
+
+bed
+```
+
+
+# Modifying co-ordinates to genomic co-ordinates for chromosome 4
+
+The co-ordinates of TGFβR1 were found using its [NCBI page](https://www.ncbi.nlm.nih.gov/gene/?term=21812).
+
+```{r }
+tgfbr1_bounds <- c("start" = 47353222, "end" = 47414926) # co-ordinates for Tgfbr1 on chromosome 4
+
+bed_align <- bed   # bed with new co-ordinates
+
+bed_align$start <- (bed_align$start - 1 + tgfbr1_bounds["start"]) # adjusting the start positions
+
+bed_align$end <- (bed_align$end - 1 + tgfbr1_bounds["start"]) # adjusting the end positions
+
+bed_align
+```
+
+# Filtering for consistent T~m~
+
+We are trying to make sure that the probes are not too far apart in T~m~
+
+```{r }
+hist(bed_align$Tm)
+```
+
+```{r }
+summary(bed_align$Tm)
+```
+
+```{r }
+bed_align <- bed_align %>% filter(Tm <= 57)
+```
+
+# Saving probes modified for chromosome, co-ordinates and T~m~
+
+```{r }
+write_tsv(x = bed_align, path = "Tgfbr1_cleaned_probes_chr.bed", col_names = FALSE)
+```
