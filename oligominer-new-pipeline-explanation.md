@@ -1,6 +1,6 @@
 ---
 title: Obtaining RSE probes for mouse Tgfβr1 
-theme: metropolis
+mainfont: Arial
 author: Kaushal K. Kaslikar
 date: 05 Feb 2020
 ---
@@ -9,8 +9,6 @@ date: 05 Feb 2020
 
 * Due to the mouse genome not being present on [Antholigo](https://antholigo.chop.edu/) for now, we are attempting to use [OligoMiner](https://github.com/beliveau-lab/OligoMiner) in its place.
 * However, since OligoMiner was primarily designed for probe generation for *in situ* hybridisation applications, some of its default parameters and behaviour have to be tweaked for it to emulate Antholigo's output (to the degree to which we can manage).
-
----
 
 Some of the considerations I am trying to pay attention to during probe generation include:
 
@@ -35,57 +33,51 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 # OligoMiner pipeline overview
 
 1. Using the `blockParse.py` to generate probes from the input region (Tgfbr1) to generate a `.fastq` file.
-2. Aligning generated probes using `bowtie2` to create a `.sam` file (genome index has to be built first and it takes a long time).
 
+2. Aligning generated probes using `bowtie2` to create a `.sam` file (genome index has to be built first and it takes a long time).
    This will map the probes to the entire mouse genome. Some probes might map to more than just our region of interest. These are not desirable to us.
-3. Removing the multi-mapped probes using the `outputClean.py` script. This produces a `BED` file with the genomic co-ordinates (start and end positions) of each of the sequences. 
+
+3. Removing the multi-mapped probes using the `outputClean.py` script. This produces a `BED` file with the genomic co-ordinates (start and end positions) of each of the sequences.
+
 4. Using the `structureCheck.py` script to check for possible secondary structures within our probes. Probes are filtered further.
 
 # Probe length
-  * Dapprich et al. used a probe length of 25 bp in their paper.
-  * I correspondingly tried to keep a probe length of between 19 to 25, so as not to be too restrictive, and allow some flexibility, since we want to generate sufficient probes which also account for the spacing and Tm considerations.
 
+* Dapprich et al. used a probe length of 25 bp in their paper.
+* I correspondingly tried to keep a probe length of between 19 to 25, so as not to be too restrictive, and allow some flexibility, since we want to generate sufficient probes which also account for the spacing and Tm considerations.
 
 # Probe spacing
 
 * Dapprich et al. used a probe spacing of 6 to 10 kb in the original paper.
-* I initially tried to specify probe spacing within OligoMiner during probe generation itself.
+* I initially tried to specify probe spacing within OligoMiner during probe generation itself, using its `space` parameter.
 * I used a probe spacing of 6 kb, in order to have a better chance of pulling down our region of interest.
 * However, the number of probes that remains after filtering for multimappers, T_m and structure is too low.
     * In addition, after all the filtering steps, the spacing of the probes becomes uneven again.
 * Hence, I resorted to using a different order of operations.
 
-## New probe generation strategy
+# New probe generation strategy
 
 * Produce probes **first**.
-
 * Filter for multi-mappers = Filter for region of interest
-
 * Filter for secondary structure
-
 * Filter for Tm
+* Filter for spacing
 
-* Filter for spacing 
-
-### Rationale behind the strategy
+# Rationale behind the strategy
 
 * Even if we solve the co-ordinate problem, we still have to account for the fact that we have to filter probes based on:
 
 	* Multiple mapping (filter these out)
-	* Tm
+	* T_m
 	* Secondary structure
   
 * If we space the probes first, applying any of the above filters *after* that may make the spacing uneven again.
 
 * Hence, we filter for everything else first, *then* space.
 
-
 # Problem caused due wrong interpretations of the probe co-ordinates output by OligoMiner
 
-## The problem
-
 * Our probes were mapping *really* far away from our intended gene, and we just did not know why.
-
 
 ![Misaligned Probes](misaligned.png)
 
@@ -104,7 +96,6 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 
 * The genome browser assumes that the co-ordinates were with respect to chromosome 4, which is why they were mapping far away.
 
-
 # The solution
 
 * Adjust the co-ordinates by 47,353,222, which is the position in mouse chromosome 4 where the gene TGFβR1 begins.
@@ -113,13 +104,10 @@ $$coordinate - 1 +  47353222$$
 
 * New co-ordinates
 
-
 | Chromosome number | Start | End | Sequence | Tm |
 |:-----------------:|:-----:|:---:|:--------:|:--:|
 |chr4|47353457 |47353457|AGCTCTTTCTCAAACATGGCGC|56.2 |
 |chr4|47353707|47353729|CCCCTGATTCCACTGCCTAAATG|55.29|
-
-
 
 # The implementation of the pipeline
 
@@ -128,15 +116,18 @@ Implemented with a mixture of Oligominer and R scripts
 1. `blockParse.py` to create oligos
 3. Align probes with `bowtie2`
 4. `outputClean.py` to remove multimappers
-5. `checking-chromosome-number.R` to change chromosome nomenclature, to modify genomic co-ordinates, and to filter for Tm (for further use in `structureCheck.py`)
+5. `checking-chromosome-number.R` to:
+    * Change chromosome nomenclature from Ensembl to UCSC
+    * Modify genomic co-ordinates
+    * Filter for consisten T_m (for further use in `structureCheck.py`)
 6. `structureCheck.py` to check for secondary structure
 7. `spacing-probes.R` to space the probes and visualise spacing
 
 # The results
 
-* 20 probes
+* 27 probe sets found, with 20 probes each
 
-* Spaced around 3000 kb apart
+* All probes within a set paced approximately >=3000 kb apart
 
 # Probes in the context of the surrounding genes
 
@@ -154,21 +145,10 @@ After (the barcode-like black bars on top of Tgfbr1 represent the probes):
 
 # Probe spacing distribution
 
-
-| Min.| 1st Qu.|Median| Mean| 3rd Qu.| Max.|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|3002| 3016|3026| 3160|3045|4333|
-
----
-
-![Probe Spacing Distribution Boxplot Representation](probe-spacing-distribution-boxplot.png)
+![Mean Probe Spacing for Each Probe Set](./mean_probe_spacing.jpeg)
 
 
----
-
-![Probe Spacing Distribution Histogram Representation](probe-spacing-distribution-histogram.png)
-
----
+![Interquartile Ranges of Probe Spacing for Each Probe Set](./probe_spacing_iqr.jpeg)
 
 
 # Future work
@@ -176,10 +156,3 @@ After (the barcode-like black bars on top of Tgfbr1 represent the probes):
 * Check the probes on IDT OligoAnalyser
 
 * Experimentally test the probes
-
-
-
-
-
-
-
