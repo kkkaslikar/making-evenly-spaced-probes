@@ -168,7 +168,7 @@ cd /mnt/f/OneDrive/GTK-Lab/Region-specific-extraction
 For the new pipeline, it was decided to **not** to space the probes first. The probes were simply generated to have a Tm of between 55 ℃ to 60 ℃, as well as a length of between 19 to 25.
 
 ```
-blockParse.py --file Tgfbr1.fa --minLength 19 --maxLength 25 --min_Tm 55 --max_Tm 60 --salt 50 --formamide 0 
+blockParse.py --file Tgfbr1.fa --minLength 19 --maxLength 25 --min_Tm 55 --max_Tm 60 --salt 50 --formamide 0
 ```
 
 Output:
@@ -183,7 +183,10 @@ Output:
 
 ```
 bowtie2 -x /mnt/f/Bioinformatics_Data/Indexes/Mus_musculus_GRCm38_unmasked_bt2_index/MM.GRCm38.unmasked -U Tgfbr1.fastq --no-hd -t -k 100 --very-sensitive-local -S Tgfbr1_probes.sam
+```
 
+```bash
+bowtie2 -x ./Mus_musculus_GRCm38_unmasked_bt2_index/MM.GRCm38.unmasked -U Tgfbr1.fastq --no-hd -t -k 100 --very-sensitive-local -S Tgfbr1_probes.sam
 ```
 
 
@@ -208,6 +211,10 @@ Output:
 outputClean identified 854 of 1261 / 67.7240% candidate probes as unique
 ```
 
+```
+outputClean identified 872 of 1261 / 69.1515% candidate probes as unique
+```
+
 ## Checking the chromosome location of uniquely-mapped probes
 
 The following R script was used to check which chromosome did the uniquely mapped probes map to, and for those which were correctly mapped to chromosome 4, the value in the first column was changed to `chr4`, and the resulting data frame was saved to a new bed file to allow convenient visualisation by UCSC genome browser or IGV.
@@ -224,6 +231,12 @@ Output:
 ```
 structureCheck predicted that 822 of 831 / 98.9170% candidate probes are predicted to have a linear structure with p>0.1000 at 51C in 50 mM Na+ and 0% formamide
 ```
+
+```
+structureCheck predicted that 865 of 872 / 99.1972% candidate probes are predicted to have a linear structure with p>0.1000 at 53C in 50 mM Na+ and 0% formamide
+```
+
+
 
 ## Spacing probes
 
