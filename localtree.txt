@@ -1,0 +1,40 @@
+.
+|-- Gviz_alignment.png
+|-- Mus_musculus.GRCm38.dna.primary_assembly.fa
+|-- Mus_musculus.GRCm38.dna.primary_assembly.fa.fai
+|-- Mus_musculus_GRCm38_unmasked_bt2_index
+|   |-- MM.GRCm38.unmasked.1.bt2
+|   |-- MM.GRCm38.unmasked.2.bt2
+|   |-- MM.GRCm38.unmasked.3.bt2
+|   |-- MM.GRCm38.unmasked.4.bt2
+|   |-- MM.GRCm38.unmasked.rev.1.bt2
+|   `-- MM.GRCm38.unmasked.rev.2.bt2
+|-- README.md
+|-- Tgfbr1.dna
+|-- Tgfbr1.fa
+|-- Tgfbr1.fastq
+|-- Tgfbr1_cleaned_probes.bed
+|-- Tgfbr1_cleaned_probes_chr.bed
+|-- Tgfbr1_cleaned_probes_chr_sC.bed
+|-- Tgfbr1_cleaned_probes_sC.bed
+|-- Tgfbr1_cleaned_probes_sC_structureCheck_log.txt
+|-- Tgfbr1_probes.sam
+|-- Tgfbr1_spaced_probes.bed
+|-- checking_chromosome_number.R
+|-- checking_chromosome_number.Rmd
+|-- checking_chromosome_number.nb.html
+|-- localtree.txt
+|-- mean_probe_spacing.jpeg
+|-- misaligned.png
+|-- old-pipeline.md
+|-- oligominer-code.md
+|-- oligominer-new-pipeline-explanation.md
+|-- pipeline.md
+|-- probe_spacing_iqr.jpeg
+|-- script.sh
+|-- spacing-probes.R
+|-- spacing-probes.Rmd
+|-- spacing-probes.nb.html
+`-- ucsc_probe_alignment.png
+
+2 directories, 56 files
