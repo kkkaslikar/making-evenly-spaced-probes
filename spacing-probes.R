@@ -44,13 +44,11 @@ for(i in 1:(nrow(bed_align) - 1)){
 
 # x <- x[!(sapply(x, is.null))]
 
-
-
 length(x)
 
 x$`1`
 
-x$`821`
+x$`821
 
 x <- purrr::compact(x)  # removing null list elements
 
@@ -147,9 +145,7 @@ spaced_probes <- bed_align[largest_probesets$probeset_1, ]
 
 write_tsv(x = spaced_probes, path = "Tgfbr1_spaced_probes.bed", col_names = FALSE)
 
-
 spaced_probe_ranges <- GRanges(seqnames = spaced_probes$chromosome, ranges = IRanges(start = spaced_probes$start, end = spaced_probes$end), probe = spaced_probes$probe, Tm = spaced_probes$Tm)
-
 
 probe_track <- Gviz::AnnotationTrack(range = spaced_probe_ranges, chromosome = 4, name  = "probes")
 
@@ -159,8 +155,7 @@ tgfbr1_bounds <- c("start" = 47353222, "end" = 47414926)
 
 tgfbr1_range <- GRanges(seqnames = c("chr4"), ranges = IRanges (start = tgfbr1_bounds["start"], end = tgfbr1_bounds["end"]))
 
-tgfbr1_track <- AnnotationTrack(range = tgfbr1_range, name = "Tgfbr1")
-  
+tgfbr1_track <- AnnotationTrack(range = tgfbr1_range, name = "Tgfbr1")  
   
 plotTracks(trackList =  list(probe_track, gtrack, tgfbr1_track))
 
