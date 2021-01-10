@@ -19,7 +19,7 @@ For a step-by-step details of the pipeline as well as the rationale behind the s
 
 For the actual code used for the command-line tools such as `OligoMiner` and `bowtie2`, look at [this link](https://kkkaslikar.github.io/making-evenly-spaced-probes/pipeline.html).
 
-For the R code which changes the chromosome nomenclature from Ensembl to UCSC, modifies the genomic co-ordinates, and filters for T~m~, follow [this link](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html).
+For the R code which changes the chromosome nomenclature from Ensembl to UCSC, modifies the genomic co-ordinates, and filters for T~m~, follow [this link](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking_chromosome_number.nb.html).
 
 For the R code which spaces the probes and visualises the spacing, follow [this link](https://kkkaslikar.github.io/making-evenly-spaced-probes/spacing-probes.nb.html).
 

@@ -44,11 +44,11 @@ Getting probes which satisfy these criteria will require a degree of trial and e
     * Modify genomic co-ordinates
     * Filter for consisten T~m~ (for further use in `structureCheck.py`)
 	
-	The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html)
+	The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking_chromosome_number.nb.html)
 
 5. Using the `structureCheck.py` script to check for possible secondary structures within our probes. Probes are filtered further.
 
-6. `spacing-probes.R` to space the probes and visualise spacing. The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html)
+6. `spacing-probes.R` to space the probes and visualise spacing. The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/spacing-probes.nb.html)
 
 
 # Probe length
