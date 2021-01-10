@@ -43,10 +43,12 @@ Getting probes which satisfy these criteria will require a degree of trial and e
     * Change chromosome nomenclature from Ensembl to UCSC
     * Modify genomic co-ordinates
     * Filter for consisten T~m~ (for further use in `structureCheck.py`)
+	
+	The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html)
 
 5. Using the `structureCheck.py` script to check for possible secondary structures within our probes. Probes are filtered further.
 
-6. `spacing-probes.R` to space the probes and visualise spacing.
+6. `spacing-probes.R` to space the probes and visualise spacing. The corresponding R notebook is rendered [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/checking-chromosome-number.nb.html)
 
 
 # Probe length
@@ -158,6 +160,10 @@ After (the barcode-like black bars on top of Tgfbr1 represent the probes):
 
 ![Interquartile Ranges of Probe Spacing for Each Probe Set](probe_spacing_iqr.jpeg)
 
+
+# Actual code for the pipeline
+
+The actual code for the pipeline is documented [here](https://kkkaslikar.github.io/making-evenly-spaced-probes/pipeline.html)
 
 # Future work
 
