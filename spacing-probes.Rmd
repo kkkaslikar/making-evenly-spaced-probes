@@ -165,18 +165,30 @@ for(i in seq_along(largest_probesets)){  # iterating along all the probe sets
 }
 ```
 
+Taking a look at the probe in the first probe set.
 
 ```{r }
 probe_spacing$probeset_1
 ```
 
+Hence, most of the probes are spaced at around 3 kb from each other in the first set.
+
+Taking a look at the mean probe spacing for each probe set.
+
 ```{r }
 mean_probe_spacing
 ```
 
+The mean probe spacing for each of these probe sets is close to 3 kb.
+
+Taking a look at the interquartile range of the probe spacing for each probe set.
+
 ```{r }
 interquartile
 ```
+
+For the most part, the probe spacing in all the probe sets is quite consistent, without too much deviation from the spacing distance of 3 kb. Most of the probe distances are at most greater than 3 kb by 100 or so bp.
+
 
 ```{r }
 mypar(1, 1)
@@ -220,9 +232,18 @@ tgfbr1_range <- GRanges(seqnames = c("chr4"), ranges = IRanges (start = tgfbr1_b
 tgfbr1_track <- AnnotationTrack(range = tgfbr1_range, name = "Tgfbr1")
 ```
 
+Here is a visual look at the probe spacing for the first probe set along mouse Tgfbr1. 
+
 ```{r }
 plotTracks(trackList =  list(probe_track, gtrack, tgfbr1_track))
 ```
+
+This spacing was also viewed online using the UCSC genome browser. The barcode-like lines above Tgfbr1 are the probes.
+
+```{r}
+knitr::include_graphics("./ucsc_probe_alignment.png")
+```
+
 
 ```{r }
 spaced_probes$Tm %>% summary()
