@@ -29,7 +29,13 @@ bed_align
 
 # Creating evenly-spaced probe sets
 
-This code attempts to create multiple probe sets which are spaced at a distance of more than or equal to `min_probe_spacing`. Each probe set begins at a certain probe in the full probe collection (hereafter referred to as the "anchor probe"), and finds the next probe which is at least at a distance of `min_probe_spacing` from the first probe, continuing the process until the last viable probe fulfilling the criterion is reached. Picking different anchor probe results in a different probe set.
+This code attempts to create multiple sets of probes which are spaced at a distance of more than or equal to `min_probe_spacing`. 
+
+Each probe set begins at a certain probe in the full probe collection. Let us refer to it as probe A.
+
+The code finds the next probe (let us refer to this as probe B) which is at least at a distance of `min_probe_spacing` from the probe A. Then the next probe is searched which is at least at a distance of `min_probe_spacing` from probe B. This process is continued until the last viable probe fulfilling the criterion is reached. All the resulting probes are then considered part of this particular probe set.
+
+Picking a different starting probe A should result in a different probe set being formed. This results in multiple probe sets being formed, each with their own starting probe A.
 
 At the end, one probe set is to be picked, which can be used for region-specific extraction.
 
