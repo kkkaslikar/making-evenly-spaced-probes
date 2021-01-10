@@ -15,9 +15,9 @@ Hence, I attempted to use [OligoMiner](https://github.com/beliveau-lab/OligoMine
 
 Since OligoMiner was not designed for this use, I had to resort to several optimisation steps in order to get the desired output.
 
-For a step-by-step details of the pipeline as well as the rationale behind the selected parameters, look at [this webpage](https://github.com/kkkaslikar/making-evenly-spaced-probes/oligominer-new-pipeline-explanation.md).
+For a step-by-step details of the pipeline as well as the rationale behind the selected parameters, look at [this webpage](https://kkkaslikar.github.io/making-evenly-spaced-probes/oligominer-new-pipeline-explanation.html).
 
-For the actual code used for the command-line tools such as `OligoMiner` and `bowtie2`, look at [this link](https://github.com/kkkaslikar/making-evenly-spaced-probes/oligominer-code.md).
+For the actual code used for the command-line tools such as `OligoMiner` and `bowtie2`, look at [this link](https://kkkaslikar.github.io/making-evenly-spaced-probes/pipeline.md).
 
 For the R code which changes the chromosome nomenclature from Ensembl to UCSC, modifies the genomic co-ordinates, and filters for T~m~, follow [this link](checking-chromosome-number.nb.html).
 
