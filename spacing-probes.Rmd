@@ -1,5 +1,5 @@
 ---
-title: Modifying Chromosome Nomenclature and Filtering for T~m~
+title: Evenly Spacing Probes and Visualising Probe Spacing
 output:
   html_notebook:
     theme: flatly
