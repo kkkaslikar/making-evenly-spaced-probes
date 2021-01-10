@@ -14,3 +14,15 @@ For PCR probe generation, the authors of the linked paper, Dapprich et al., reco
 Hence, I attempted to use [OligoMiner](https://github.com/beliveau-lab/OligoMiner), a software originally designed for generating probes for fluorescence *in situ* hybridisation (FISH), to simulate the output of Antholigo and generate probes for our region of interest.
 
 Since OligoMiner was not designed for this use, I had to resort to several optimisation steps in order to get the desired output.
+
+For a step-by-step details of the pipeline as well as the rationale behind the selected parameters, look at [this webpage](https://github.com/kkkaslikar/making-evenly-spaced-probes/oligominer-new-pipeline-explanation.md).
+
+For the actual code used for the command-line tools such as `OligoMiner` and `bowtie2`, look at [this link](https://github.com/kkkaslikar/making-evenly-spaced-probes/oligominer-code.md).
+
+For the R code which changes the chromosome nomenclature from Ensembl to UCSC, modifies the genomic co-ordinates, and filters for T~m~, follow [this link](checking-chromosome-number.nb.html).
+
+For the R code which spaces the probes and visualises the spacing, follow [this link](spacing-probes.nb.html).
+
+
+
+

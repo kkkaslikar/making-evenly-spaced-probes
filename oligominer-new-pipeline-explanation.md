@@ -29,7 +29,7 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 * For example, OligoMiner assumes an Na^+^ salt concentration of 390 mM and a formamide percentage of 50%, which are the norm for FISH. Both will affect melting temperature (Tm).
 * However, as far as I can tell, PCR buffers do not contain formamide and contain only 50 mM of K^+^. K^+^ being a monovalent salt like Na^+^, we can assume that the effects of [Na^+^] and [K^+^] on Tm should be similar.
 * In addition, PCR buffers may also contain Mg^2+^, as a cofactor for the polymerase. However, it is not present at a very high concentration, so I do not think it will affect Tm.
-
+ 
 # OligoMiner pipeline overview
 
 1. Using the `blockParse.py` to generate probes from the input region (Tgfbr1) to generate a `.fastq` file.
@@ -39,7 +39,15 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 
 3. Removing the multi-mapped probes using the `outputClean.py` script. This produces a `BED` file with the genomic co-ordinates (start and end positions) of each of the sequences.
 
-4. Using the `structureCheck.py` script to check for possible secondary structures within our probes. Probes are filtered further.
+4. The R script `checking-chromosome-number.R` to:
+    * Change chromosome nomenclature from Ensembl to UCSC
+    * Modify genomic co-ordinates
+    * Filter for consisten T~m~ (for further use in `structureCheck.py`)
+
+5. Using the `structureCheck.py` script to check for possible secondary structures within our probes. Probes are filtered further.
+
+6. `spacing-probes.R` to space the probes and visualise spacing.
+
 
 # Probe length
 
@@ -51,7 +59,7 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 * Dapprich et al. used a probe spacing of 6 to 10 kb in the original paper.
 * I initially tried to specify probe spacing within OligoMiner during probe generation itself, using its `space` parameter.
 * I used a probe spacing of 6 kb, in order to have a better chance of pulling down our region of interest.
-* However, the number of probes that remains after filtering for multimappers, T_m and structure is too low.
+* However, the number of probes that remains after filtering for multimappers, T~m~ and structure is too low.
     * In addition, after all the filtering steps, the spacing of the probes becomes uneven again.
 * Hence, I resorted to using a different order of operations.
 
@@ -68,7 +76,7 @@ Getting probes which satisfy these criteria will require a degree of trial and e
 * Even if we solve the co-ordinate problem, we still have to account for the fact that we have to filter probes based on:
 
 	* Multiple mapping (filter these out)
-	* T_m
+	* T~m~
 	* Secondary structure
   
 * If we space the probes first, applying any of the above filters *after* that may make the spacing uneven again.
@@ -111,17 +119,17 @@ $$coordinate - 1 +  47353222$$
 
 # The implementation of the pipeline
 
-Implemented with a mixture of Oligominer and R scripts
+Review of how the pipeline was implemented with a mixture of Oligominer and R scripts:
 
 1. `blockParse.py` to create oligos
-3. Align probes with `bowtie2`
-4. `outputClean.py` to remove multimappers
-5. `checking-chromosome-number.R` to:
+2. Align probes with `bowtie2`
+3. `outputClean.py` to remove multimappers
+4. `checking-chromosome-number.R` to:
     * Change chromosome nomenclature from Ensembl to UCSC
     * Modify genomic co-ordinates
-    * Filter for consisten T_m (for further use in `structureCheck.py`)
-6. `structureCheck.py` to check for secondary structure
-7. `spacing-probes.R` to space the probes and visualise spacing
+    * Filter for consisten T~m~ (for further use in `structureCheck.py`)
+5. `structureCheck.py` to check for secondary structure
+6. `spacing-probes.R` to space the probes and visualise spacing
 
 # The results
 
@@ -145,10 +153,10 @@ After (the barcode-like black bars on top of Tgfbr1 represent the probes):
 
 # Probe spacing distribution
 
-![Mean Probe Spacing for Each Probe Set](./mean_probe_spacing.jpeg)
+![Mean Probe Spacing for Each Probe Set](mean_probe_spacing.jpeg)
 
 
-![Interquartile Ranges of Probe Spacing for Each Probe Set](./probe_spacing_iqr.jpeg)
+![Interquartile Ranges of Probe Spacing for Each Probe Set](probe_spacing_iqr.jpeg)
 
 
 # Future work
