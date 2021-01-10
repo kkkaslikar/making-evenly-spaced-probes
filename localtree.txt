@@ -32,6 +32,7 @@
 |-- pipeline.md
 |-- probe_spacing_iqr.jpeg
 |-- script.sh
+|-- index.md
 |-- spacing-probes.R
 |-- spacing-probes.Rmd
 |-- spacing-probes.nb.html
